@@ -108,3 +108,78 @@ sudo apt update
 sudo apt install swaks -y
 swaks --version
 ````
+# swaks flow
+````
+swaks \
+  --to user@example.com \
+  --server localhost:587 \
+  --auth LOGIN \
+  --auth-user user \
+  --auth-password password \
+  --tls \
+  -p
+Port: 587
+=== Trying localhost:587...
+=== Connected to localhost.
+<-  220 mail.localhost ESMTP Postfix
+ -> EHLO DESKTOP-QDHJQOO.localdomain
+<-  250-mail.localhost
+<-  250-PIPELINING
+<-  250-SIZE 10240000
+<-  250-VRFY
+<-  250-ETRN
+<-  250-STARTTLS
+<-  250-AUTH PLAIN LOGIN
+<-  250-ENHANCEDSTATUSCODES
+<-  250-8BITMIME
+<-  250-DSN
+<-  250-SMTPUTF8
+<-  250 CHUNKING
+ -> STARTTLS
+<-  220 2.0.0 Ready to start TLS
+=== TLS started with cipher TLSv1.3:TLS_AES_256_GCM_SHA384:256
+=== TLS client certificate not requested and not sent
+=== TLS no client certificate set
+=== TLS peer[0]   subject=[/CN=localhost]
+===               commonName=[localhost], subjectAltName=[] notAfter=[2027-03-31T09:36:31Z]
+=== TLS peer certificate failed CA verification (self-signed certificate), passed host verification (using host localhost to verify)
+ ~> EHLO DESKTOP-QDHJQOO.localdomain
+<~  250-mail.localhost
+<~  250-PIPELINING
+<~  250-SIZE 10240000
+<~  250-VRFY
+<~  250-ETRN
+<~  250-AUTH PLAIN LOGIN
+<~  250-ENHANCEDSTATUSCODES
+<~  250-8BITMIME
+<~  250-DSN
+<~  250-SMTPUTF8
+<~  250 CHUNKING
+ ~> AUTH LOGIN
+<~  334 VXNlcm5hbWU6
+ ~> dXNlcg==
+<~  334 UGFzc3dvcmQ6
+ ~> cGFzc3dvcmQ=
+<~  235 2.7.0 Authentication successful
+ ~> MAIL FROM:<rajib@DESKTOP-QDHJQOO.localdomain>
+<~  250 2.1.0 Ok
+ ~> RCPT TO:<user@example.com>
+<~  250 2.1.5 Ok
+ ~> DATA
+<~  354 End data with <CR><LF>.<CR><LF>
+ ~> Date: Tue, 31 Mar 2026 18:35:05 +0600
+ ~> To: user@example.com
+ ~> From: rajib@DESKTOP-QDHJQOO.localdomain
+ ~> Subject: test Tue, 31 Mar 2026 18:35:05 +0600
+ ~> Message-Id: <20260331183505.011504@DESKTOP-QDHJQOO.localdomain>
+ ~> X-Mailer: swaks v20240103.0 jetmore.org/john/code/swaks/
+ ~>
+ ~> This is a test mailing
+ ~>
+ ~>
+ ~> .
+<~  250 2.0.0 Ok: queued as BDD539ABFC
+ ~> QUIT
+<~  221 2.0.0 Bye
+=== Connection closed with remote host.
+````
