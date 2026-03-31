@@ -1,3 +1,19 @@
+# Certificate Creation
+
+openssl req -x509 -newkey rsa:2048 -nodes \
+  -keyout private/server.key -out certs/server.crt \
+  -days 365 -subj "/CN=localhost"
+
+# Give permission
+
+# Make Postfix configs owned by root and not group/other writable
+sudo chown root:root postfix/main.cf postfix/master.cf
+sudo chmod 644 postfix/main.cf postfix/master.cf
+
+# TLS private key should be root only
+sudo chmod 600 private/server.key
+sudo chmod 644 certs/server.crt
+
 # Postfix & Dovecot Dockerized Mail Server
 
 A lightweight Postfix and Dovecot setup running in Docker, configured for SMTP Authentication (SASL) and TLS encryption. This setup is ideal for local development and testing mail flows.
