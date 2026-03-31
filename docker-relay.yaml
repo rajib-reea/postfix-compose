@@ -1,0 +1,17 @@
+services:
+  postfix:
+    image: izdock/postfix:latest
+    container_name: postfix
+    environment:
+      - mydomain=localhost
+      - myhostname=postfix
+      - smtp_user=user:password
+    ports:
+      - "587:587"   # Use 587 only for WSL testing
+    restart: always
+    networks:
+      - mailnet
+
+networks:
+  mailnet:
+    driver: bridge

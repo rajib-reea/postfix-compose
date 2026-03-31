@@ -1,0 +1,49 @@
+openssl s_client -starttls smtp -connect localhost:587
+EHLO test
+
+mkdir -p certs private
+
+openssl req -x509 -newkey rsa:2048 -nodes \
+  -keyout private/server.key -out certs/server.crt \
+  -days 365 -subj "/CN=localhost"
+
+  docker compose -f docker-ssl.yaml up -d --build
+
+
+  docker run -it --rm \
+  -v $(pwd)/certs:/etc/ssl/certs \
+  -v $(pwd)/private:/etc/ssl/private \
+  -v $(pwd)/postfix:/etc/postfix \
+  email-testing-postfix /bin/bash
+
+  postfix start
+
+//////////////////mpre appropriate////////////
+# Make Postfix configs owned by root and not group/other writable
+sudo chown root:root postfix/main.cf postfix/master.cf
+sudo chmod 644 postfix/main.cf postfix/master.cf
+
+# TLS private key should be root only
+sudo chmod 600 private/server.key
+sudo chmod 644 certs/server.crt
+docker run -it --rm \
+  -v $(pwd)/certs:/etc/ssl/certs \
+  -v $(pwd)/private:/etc/ssl/private \
+  -v $(pwd)/postfix/main.cf:/etc/postfix/main.cf \
+  -v $(pwd)/postfix/master.cf:/etc/postfix/master.cf \
+  email-testing-postfix /bin/bash
+
+
+
+
+
+
+
+
+  ////////////////////
+  find ports:
+  ///////////////////
+  docker exec -it postfix bash
+netstat -tulnp | grep master
+# or
+ss -tulnp | grep 25
