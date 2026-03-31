@@ -33,3 +33,5 @@ lmtp      unix  -       -       y       -       -       lmtp
 anvil     unix  -       -       y       -       1       anvil
 scache    unix  -       -       y       -       1       scache
 postlog   unix-dgram n  -       n       -       1       postlogd
+tlsmgr    unix  -       -       y       1000?   1       tlsmgr
+anvil     unix  -       -       y       -       1       anvil
