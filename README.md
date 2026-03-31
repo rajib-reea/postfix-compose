@@ -17,6 +17,18 @@ sudo chmod 644 postfix/main.cf postfix/master.cf
 sudo chmod 600 private/server.key
 sudo chmod 644 certs/server.crt
 ````
+
+# Run docker compose
+
+````
+A. Relay Run:
+docker compose -f docker-relay.yaml up --build
+docker compose -f docker-relay.yaml down
+
+B. TLS Run:
+docker compose -f docker-ssl.yaml up --build
+docker compose -f docker-ssl.yaml down
+````
 # Postfix & Dovecot Dockerized Mail Server
 
 A lightweight Postfix and Dovecot setup running in Docker, configured for SMTP Authentication (SASL) and TLS encryption. This setup is ideal for local development and testing mail flows.
@@ -35,18 +47,6 @@ docker logs -f postfix
 🔒 Permissions Fixes
 Postfix is strict about file permissions. If you encounter "fatal" or "warning" errors regarding configuration ownership, apply the following:
 
-Postfix Configurations
-Ensure the config files are owned by root and not group/world writable:
-
-Bash
-sudo chown root:root postfix/main.cf postfix/master.cf
-sudo chmod 644 postfix/main.cf postfix/master.cf
-TLS Certificates & Keys
-The private key must be restricted to root only:
-
-Bash
-sudo chmod 600 private/server.key
-sudo chmod 644 certs/server.crt
 🛠 Testing the Connection
 1. Basic SMTP Connectivity (Telnet)
 Verify that the server is listening and advertising the correct capabilities:
