@@ -29,6 +29,22 @@ B. TLS Run:
 docker compose -f docker-ssl.yaml up --build
 docker compose -f docker-ssl.yaml down
 ````
+
+# Troubleshoot Issue
+
+````
+docker run -it --rm \
+  -v $(pwd)/certs:/etc/ssl/certs \
+  -v $(pwd)/private:/etc/ssl/private \
+  -v $(pwd)/postfix/main.cf:/etc/postfix/main.cf \
+  -v $(pwd)/postfix/master.cf:/etc/postfix/master.cf \
+  email-testing-postfix /bin/bash
+
+on container terminal issue:
+
+postfix check
+postfix start
+````
 # Postfix & Dovecot Dockerized Mail Server
 
 A lightweight Postfix and Dovecot setup running in Docker, configured for SMTP Authentication (SASL) and TLS encryption. This setup is ideal for local development and testing mail flows.
